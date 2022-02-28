@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import ProLayout, { PageContainer, ProBreadcrumb } from '@ant-design/pro-layout';
 
-export default ({ children }) => (
+export default ({ children }: {
+  children: ReactNode;
+}) => (
   <div
     style={{
       height: '100vh',
