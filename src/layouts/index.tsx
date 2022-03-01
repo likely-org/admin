@@ -1,68 +1,60 @@
-import React, { ReactNode } from 'react';
+import {
+  ReactNode,
+} from 'react';
 
-import ProLayout, { PageContainer, ProBreadcrumb } from '@ant-design/pro-layout';
+import ProLayout,
+{
+  PageContainer,
+} from '@ant-design/pro-layout';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 
 export default ({ children }: {
   children: ReactNode;
-}) => (
-  <div
-    style={{
-      height: '100vh',
-    }}
-  >
-    <ProLayout
-      location={{
-        pathname: '/admin/process/edit/123',
+}) => {
+  const history = useHistory();
+  return (
+    <div
+      style={{
+        height: '100vh',
       }}
-      ErrorBoundary={false}
-      headerContentRender={() => <ProBreadcrumb />}
-      breadcrumbRender={(routers = []) => [
-        {
-          path: '/',
-          breadcrumbName: '主页',
-        },
-        {
-          path: '/',
-          breadcrumbName: '测试页',
-        },
-        ...routers,
-      ]}
-      menuDataRender={() => [
-        {
-          path: '/welcome',
-          name: '欢迎',
-        },
-        {
-          path: '/admin',
-          name: '管理',
-          routes: [
-            {
-              name: '申请单列表',
-              path: '/admin/process',
-            },
-            {
-              name: '申请单详情',
-              path: '/admin/process/detail/:id',
-              hideInMenu: true,
-            },
-            {
-              name: '编辑申请单',
-              path: '/admin/process/edit/:id',
-              hideInMenu: true,
-            },
-            {
-              name: '添加申请单',
-              path: '/admin/process/add',
-              hideInMenu: true,
-            },
-          ],
-        },
-      ]}
     >
-      <PageContainer content="欢迎使用" breadcrumbRender={false}>
-        <div>Hello World</div>
-        {children}
-      </PageContainer>
-    </ProLayout>
-  </div>
-);
+      <ProLayout
+        location={{
+          pathname: history.location.pathname,
+        }}
+        ErrorBoundary={false}
+        breadcrumbRender={(routers = []) => routers}
+        rightContentRender={() => (
+          <div>
+            <Avatar shape="square" size="small" icon={<UserOutlined />} />
+          </div>
+        )}
+        menuItemRender={(item, dom) => (
+          <a
+            onClick={() => {
+              history.push(item.path || '/');
+            }}
+          >
+            {dom}
+          </a>
+        )}
+        menuDataRender={() => [
+          {
+            path: '/',
+            name: '首页',
+          },
+          {
+            path: '/colleges',
+            name: '院校管理',
+          },
+        ]}
+      >
+        <PageContainer>
+          {children}
+        </PageContainer>
+      </ProLayout>
+    </div>
+  );
+};
