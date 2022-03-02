@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "@ant-design/pro-layout": "^6.26.5",
+    "@ant-design/pro-layout": "^6.33.1",
     "react": "17.x",
     "react-dom": "17.x",
     "umi": "^3.5.21"

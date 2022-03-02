@@ -1,7 +1,3 @@
-import {
-  ReactNode,
-} from 'react';
-
 import ProLayout,
 {
   PageContainer,
@@ -9,10 +5,15 @@ import ProLayout,
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import { IRouteComponentProps } from 'umi';
+import { routes } from '@/routes';
 
-export default ({ children }: {
-  children: ReactNode;
-}) => {
+export default function Layouts(props: IRouteComponentProps) {
+  const {
+    children,
+    // route,
+  } = props;
+  console.log('props :>> ', props);
   const history = useHistory();
   return (
     <div
@@ -21,6 +22,7 @@ export default ({ children }: {
       }}
     >
       <ProLayout
+        route={routes[0]}
         location={{
           pathname: history.location.pathname,
         }}
@@ -31,25 +33,21 @@ export default ({ children }: {
             <Avatar shape="square" size="small" icon={<UserOutlined />} />
           </div>
         )}
-        menuItemRender={(item, dom) => (
-          <a
-            onClick={() => {
-              history.push(item.path || '/');
-            }}
-          >
-            {dom}
-          </a>
-        )}
-        menuDataRender={() => [
-          {
-            path: '/',
-            name: '首页',
-          },
-          {
-            path: '/colleges',
-            name: '院校管理',
-          },
-        ]}
+        menuItemRender={(item, dom) => {
+          console.log('item, dom, ...rest :>> ', item, dom);
+          return (
+            <a
+              onClick={() => {
+                history.push(item.path || '/');
+              }}
+            >
+              {dom}
+            </a>
+          );
+        }}
+        menuDataRender={(menuData) => {
+          return menuData;
+        }}
       >
         <PageContainer>
           {children}
@@ -57,4 +55,4 @@ export default ({ children }: {
       </ProLayout>
     </div>
   );
-};
+}

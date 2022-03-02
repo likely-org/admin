@@ -7,8 +7,7 @@
     "javascript",
     "javascriptreact",
     "typescriptreact",
-    "typescript",
-    "html"
+    "typescript"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
