@@ -16,11 +16,7 @@ export default function Layouts(props: IRouteComponentProps) {
   console.log('props :>> ', props);
   const history = useHistory();
   return (
-    <div
-      style={{
-        height: '100vh',
-      }}
-    >
+    <div className="full">
       <ProLayout
         route={routes[0]}
         location={{

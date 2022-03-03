@@ -5,6 +5,10 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
+  cssModulesTypescriptLoader: {},
+  cssLoader: {
+    localsConvention: 'camelCase',
+  },
   routes,
   fastRefresh: {},
   mfsu: {},

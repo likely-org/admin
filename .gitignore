@@ -17,4 +17,6 @@
 /src/.umi-production
 /src/.umi-test
 /.env.local
+*.less.d.ts
+
 .eslintcache

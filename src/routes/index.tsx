@@ -3,11 +3,13 @@ import {
   SmileOutlined, CrownOutlined,
   // TabletOutlined,
 } from '@ant-design/icons';
+import { IRoute } from 'umi';
 
-export const routes = [
+export const routes: IRoute[] = [
   {
     path: '/',
     component: '@/layouts',
+    exact: true,
     routes: [
       {
         path: '/',
@@ -26,7 +28,8 @@ export const routes = [
     ],
   },
   {
-    path: '/user',
-    component: '@/pages/index',
+    path: '/account',
+    component: '@/pages/account',
+    exact: true,
   },
 ];
