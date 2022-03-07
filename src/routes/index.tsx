@@ -9,7 +9,8 @@ export const routes: IRoute[] = [
   {
     path: '/',
     component: '@/layouts',
-    exact: true,
+    // exact: true,
+    // redirect: '/index',
     routes: [
       {
         path: '/',

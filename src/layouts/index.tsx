@@ -13,7 +13,6 @@ export default function Layouts(props: IRouteComponentProps) {
     children,
     // route,
   } = props;
-  console.log('props :>> ', props);
   const history = useHistory();
   return (
     <div className="full">
@@ -30,7 +29,6 @@ export default function Layouts(props: IRouteComponentProps) {
           </div>
         )}
         menuItemRender={(item, dom) => {
-          console.log('item, dom, ...rest :>> ', item, dom);
           return (
             <a
               onClick={() => {
