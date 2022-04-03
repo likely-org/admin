@@ -37,7 +37,7 @@ steps:
     mount:
     - ./node_modules
 
-恢复dist
+# 恢复dist
 - name: restore-cache-dist
   image: drillster/drone-volume-cache
   pull: if-not-exists
@@ -55,7 +55,7 @@ steps:
   commands:
   - yarn build
 
-建立缓存dist
+# 建立缓存dist
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   pull: if-not-exists
@@ -81,9 +81,9 @@ steps:
       from_secret: port
     target: /www/wwwroot/likely-admin
     source: ./dist
-  # when:
-  #   branch:
-  #   - dev
+  when:
+    branch:
+    - dev
 
 volumes:
   - name: cache
