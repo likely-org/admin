@@ -81,9 +81,9 @@ steps:
       from_secret: port
     target: /www/wwwroot/likely-admin
     source: ./dist
-  when:
-    branch:
-    - dev
+  # when:
+  #   branch:
+  #   - dev
 
 volumes:
   - name: cache
