@@ -12,7 +12,7 @@ steps:
   pull: if-not-exists
   volumes:
   - name: cache
-    path: /cache/drone/likely/admin/node_modules
+    path: /cache
   settings:
     restore: true
     mount:
@@ -31,23 +31,23 @@ steps:
   pull: if-not-exists
   volumes:
   - name: cache
-    path: /cache/drone/likely/admin/node_modules
+    path: /cache
   settings:
     rebuild: true
     mount:
     - ./node_modules
 
-# 恢复dist
-# - name: restore-cache-dist
-#   image: drillster/drone-volume-cache
-#   pull: if-not-exists
-#   volumes:
-#   - name: cache
-#     path: /cache
-#   settings:
-#     restore: true
-#     mount:
-#     - ./.mfsu-production
+恢复dist
+- name: restore-cache-dist
+  image: drillster/drone-volume-cache
+  pull: if-not-exists
+  volumes:
+  - name: cache
+    path: /cache
+  settings:
+    restore: true
+    mount:
+    - ./.mfsu-production
 
 - name: Build
   image: node:12.22.10
@@ -55,17 +55,17 @@ steps:
   commands:
   - yarn build
 
-# 建立缓存dist
-# - name: rebuild-cache
-#   image: drillster/drone-volume-cache
-#   pull: if-not-exists
-#   volumes:
-#   - name: cache
-#     path: /cache
-#   settings:
-#     rebuild: true
-#     mount:
-#     - ./.mfsu-production
+建立缓存dist
+- name: rebuild-cache
+  image: drillster/drone-volume-cache
+  pull: if-not-exists
+  volumes:
+  - name: cache
+    path: /cache
+  settings:
+    rebuild: true
+    mount:
+    - ./.mfsu-production
 
 - name: Deploy
   image: appleboy/drone-scp
@@ -81,9 +81,9 @@ steps:
       from_secret: port
     target: /www/wwwroot/likely-admin
     source: ./dist
-  # when:
-  #   branch:
-  #   - ci/*
+  when:
+    branch:
+    - dev
 
 volumes:
   - name: cache
