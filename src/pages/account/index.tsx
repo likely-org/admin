@@ -1,4 +1,4 @@
-import { LoginForm, ProFormText, ProFormCaptcha, ProFormCheckbox } from '@ant-design/pro-form';
+import { LoginForm, ProFormText, ProFormCaptcha, ProFormCheckbox, ProForm } from '@ant-design/pro-form';
 import {
   UserOutlined,
   MobileOutlined,
@@ -6,13 +6,15 @@ import {
   AlipayCircleOutlined,
   TaobaoCircleOutlined,
   WeiboCircleOutlined,
+  WechatOutlined,
+  MailOutlined,
 } from '@ant-design/icons';
-import { message, Tabs, Space } from 'antd';
+import { message, Tabs, Space, Button, Input } from 'antd';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import './index.less';
 
-type LoginType = 'phone' | 'account';
+type LoginType = 'login' | 'register';
 
 const iconStyles: CSSProperties = {
   marginLeft: '16px',
@@ -23,122 +25,159 @@ const iconStyles: CSSProperties = {
 };
 
 export default () => {
-  const [loginType, setLoginType] = useState<LoginType>('phone');
+  const [loginType, setLoginType] = useState<LoginType>('login');
   return (
     <div className="account-container">
       <LoginForm
+        layout="horizontal"
+        labelCol={{ span: 4 }}
+        wrapperCol={{ span: 20 }}
         logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-        title="Github"
-        subTitle="全球最大同性交友网站"
+        title="可能留学"
+        subTitle="后台管理系统"
         actions={
           <Space>
             其他登录方式
-            <AlipayCircleOutlined style={iconStyles} />
-            <TaobaoCircleOutlined style={iconStyles} />
-            <WeiboCircleOutlined style={iconStyles} />
+            <WechatOutlined style={iconStyles} />
           </Space>
         }
       >
         <Tabs activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
-          <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
-          <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+          <Tabs.TabPane key={'login'} tab="登录" />
+          <Tabs.TabPane key={'register'} tab="注册" />
         </Tabs>
-        {loginType === 'account' && (
-          <>
-            <ProFormText
-              name="username"
-              fieldProps={{
-                size: 'large',
-                prefix: <UserOutlined className={'prefixIcon'} />,
-              }}
-              placeholder={'用户名: admin or user'}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入用户名!',
-                },
-              ]}
-            />
-            <ProFormText.Password
-              name="password"
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined className={'prefixIcon'} />,
-              }}
-              placeholder={'密码: ant.design'}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入密码！',
-                },
-              ]}
-            />
-          </>
-        )}
-        {loginType === 'phone' && (
-          <>
-            <ProFormText
-              fieldProps={{
-                size: 'large',
-                prefix: <MobileOutlined className={'prefixIcon'} />,
-              }}
-              name="mobile"
-              placeholder={'手机号'}
-              rules={[
-                {
-                  required: true,
-                  message: '请输入手机号！',
-                },
-                {
-                  pattern: /^1\d{10}$/,
-                  message: '手机号格式错误！',
-                },
-              ]}
-            />
-            <ProFormCaptcha
-              fieldProps={{
-                size: 'large',
-                prefix: <LockOutlined className={'prefixIcon'} />,
-              }}
-              captchaProps={{
-                size: 'large',
-              }}
-              placeholder={'请输入验证码'}
-              captchaTextRender={(timing, count) => {
-                if (timing) {
-                  return `${count} ${'获取验证码'}`;
-                }
-                return '获取验证码';
-              }}
-              name="captcha"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入验证码！',
-                },
-              ]}
-              onGetCaptcha={async () => {
-                message.success('获取验证码成功！验证码为：1234');
-              }}
-            />
-          </>
-        )}
-        <div
-          style={{
-            marginBottom: 24,
+        <ProFormText
+          name="username"
+          label="姓名"
+          fieldProps={{
+            size: 'large',
+            prefix: <UserOutlined />,
           }}
+          placeholder={'用户名: admin or user'}
+          rules={[
+            {
+              required: true,
+              message: '请输入用户名!',
+            },
+          ]}
+        />
+        <ProFormText.Password
+          name="password"
+          label="密码"
+          allowClear
+          fieldProps={{
+            size: 'large',
+            prefix: <LockOutlined />,
+          }}
+          placeholder={'密码: ant.design'}
+          rules={[
+            {
+              required: true,
+              message: '请输入密码！',
+            },
+          ]}
+        />
+        {
+          loginType === 'register' &&
+          <ProFormText
+            fieldProps={{
+              size: 'large',
+              prefix: <MailOutlined />,
+            }}
+            name="mobile"
+            label="邮箱"
+            placeholder={'邮箱'}
+            rules={[
+              {
+                required: true,
+                message: '请输入手机号！',
+              },
+              {
+                pattern: /^1\d{10}$/,
+                message: '手机号格式错误！',
+              },
+            ]}
+          />
+        }
+        <ProForm.Item
+          name="captcha"
+          label="验证码"
+          // rules={rules('Please input correct captcha!', 'captcha')}
+          extra="We must make sure that your are a human."
         >
-          <ProFormCheckbox noStyle name="autoLogin">
-            自动登录
-          </ProFormCheckbox>
-          <a
+          <div className="df">
+            <Input
+              placeholder="input four code"
+              allowClear
+            />
+            {loginType === 'register' && (
+            <Button
+              type="primary"
+              className="ml10"
+              // onClick={onCaptchaByEmail}
+            >
+              获取验证码
+            </Button>
+            )}
+            {loginType === 'login' && (
+            <div
+              className="ml10 captcha-wrap"
+              // dangerouslySetInnerHTML={{
+              //   __html: captchaInfo.data || '验证码加载失败',
+              // }}
+              // onClick={onCaptcha}
+            >
+              11
+            </div>
+            )}
+          </div>
+        </ProForm.Item>
+        {/* <ProFormCaptcha
+          name="captcha"
+          label="验证码"
+          fieldProps={{
+            size: 'large',
+            prefix: <LockOutlined />,
+          }}
+          captchaProps={{
+            size: 'large',
+          }}
+          placeholder={'请输入验证码'}
+          captchaTextRender={(timing, count) => {
+            if (timing) {
+              return `${count} ${'获取验证码'}`;
+            }
+            return '获取验证码';
+          }}
+          rules={[
+            {
+              required: true,
+              message: '请输入验证码！',
+            },
+          ]}
+          onGetCaptcha={async () => {
+            message.success('获取验证码成功！验证码为：1234');
+          }}
+        /> */}
+        {/* {
+          loginType === 'login' &&
+          <div
             style={{
-              float: 'right',
+              marginBottom: 24,
             }}
           >
-            忘记密码
-          </a>
-        </div>
+            <ProFormCheckbox noStyle name="autoLogin">
+              自动登录
+            </ProFormCheckbox>
+            <a
+              style={{
+                float: 'right',
+              }}
+            >
+              忘记密码
+            </a>
+          </div>
+        } */}
       </LoginForm>
     </div>
   );
