@@ -34,8 +34,8 @@ export default () => {
           return Promise.resolve();
         }}
         layout="horizontal"
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 20 }}
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span: 18 }}
         logo="https://github.githubassets.com/images/modules/logos_page/Octocat.png"
         title="可能留学"
         subTitle="后台管理系统"
