@@ -12,8 +12,15 @@ export default function Layouts(props: IRouteComponentProps) {
   const {
     children,
     // route,
+    location,
   } = props;
   const history = useHistory();
+  if (props.location.pathname === '/account') {
+    console.log('location :>> ', location);
+    console.log('children :>> ', children);
+    return children;
+  }
+
   return (
     <div className="full">
       <ProLayout

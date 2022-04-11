@@ -9,11 +9,11 @@ export const routes: IRoute[] = [
   {
     path: '/',
     component: '@/layouts',
-    // exact: true,
+    exact: false,
     // redirect: '/index',
     routes: [
       {
-        path: '/',
+        path: '/index',
         name: '首页',
         exact: true,
         icon: <SmileOutlined />,
@@ -26,11 +26,11 @@ export const routes: IRoute[] = [
         icon: <CrownOutlined />,
         component: '@/pages/colleges',
       },
+      {
+        path: '/account',
+        component: '@/pages/account',
+        exact: true,
+      },
     ],
-  },
-  {
-    path: '/account',
-    component: '@/pages/account',
-    exact: true,
   },
 ];

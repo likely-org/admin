@@ -5,11 +5,11 @@ import Cookies from 'js-cookie';
 
 export function render(oldRender: Function) {
   // TODO 接口后修改
-  const token = Cookies.get('token') || 'token';
-  console.log('token :>> ', token);
-  if (!token) {
-    history.push('/account');
-  }
+  // const token = Cookies.get('token');
+  // console.log('token :>> ', token);
+  // if (!token) {
+  //   history.push('/account');
+  // }
   oldRender();
 }
 
