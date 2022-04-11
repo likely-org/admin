@@ -29,6 +29,10 @@ export default () => {
   return (
     <div className="account-container">
       <LoginForm
+        onFinish={(data) => {
+          console.log('onFinish :>> ', data);
+          return Promise.resolve();
+        }}
         layout="horizontal"
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 20 }}
@@ -86,7 +90,7 @@ export default () => {
             }}
             name="mobile"
             label="邮箱"
-            placeholder={'邮箱'}
+            placeholder="邮箱"
             rules={[
               {
                 required: true,
@@ -102,7 +106,12 @@ export default () => {
         <ProForm.Item
           name="captcha"
           label="验证码"
-          // rules={rules('Please input correct captcha!', 'captcha')}
+          rules={[
+            {
+              required: true,
+              message: '请输入验证码！',
+            },
+          ]}
           extra="We must make sure that your are a human."
         >
           <div className="df">
@@ -110,26 +119,26 @@ export default () => {
               placeholder="input four code"
               allowClear
             />
-            {loginType === 'register' && (
-            <Button
-              type="primary"
-              className="ml10"
-              // onClick={onCaptchaByEmail}
-            >
-              获取验证码
-            </Button>
-            )}
-            {loginType === 'login' && (
-            <div
-              className="ml10 captcha-wrap"
-              // dangerouslySetInnerHTML={{
-              //   __html: captchaInfo.data || '验证码加载失败',
-              // }}
-              // onClick={onCaptcha}
-            >
-              11
-            </div>
-            )}
+            {loginType === 'register' ?
+              (
+                <Button
+                  type="primary"
+                  className="ml10"
+                >
+                  获取验证码
+                </Button>
+              ) : (
+                // eslint-disable-next-line react/no-danger-with-children
+                <div
+                  className="ml10 captcha-wrap"
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{
+                    __html: '验证码加载失败',
+                  }}
+                  // onClick={onCaptcha}
+                />
+              )
+          }
           </div>
         </ProForm.Item>
         {/* <ProFormCaptcha

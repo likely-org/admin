@@ -15,9 +15,7 @@ export default function Layouts(props: IRouteComponentProps) {
     location,
   } = props;
   const history = useHistory();
-  if (props.location.pathname === '/account') {
-    console.log('location :>> ', location);
-    console.log('children :>> ', children);
+  if (location.pathname === '/account') {
     return children;
   }
 
