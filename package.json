@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
+    "dev": "cross-env UMI_ENV=dev umi dev",
+    "build": "cross-env UMI_ENV=pre umi build",
     "postinstall": "umi generate tmp",
     "eslint": "eslint . --ext .jsx,.js,.tsx,.ts",
     "eslint:fix": "eslint . --ext .jsx,.js,.tsx,.ts --cache --fix",
@@ -24,7 +24,10 @@
   "dependencies": {
     "@ant-design/pro-form": "^1.55.1",
     "@ant-design/pro-layout": "^6.33.1",
+    "@wont/utils": "^0.0.1-beta.0",
+    "axios": "^0.26.1",
     "js-cookie": "^3.0.1",
+    "qs": "^6.10.3",
     "react": "17.x",
     "react-dom": "17.x",
     "recoil": "^0.6.1",
@@ -40,6 +43,7 @@
     "@typescript-eslint/parser": "^5.0.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.5.21",
+    "cross-env": "^7.0.3",
     "eslint": "^7.15.0",
     "eslint-config-ali": "^13.1.0",
     "eslint-plugin-import": "^2.19.1",
