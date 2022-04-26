@@ -6,6 +6,8 @@ export function getImgCaptchaApi() {
   return request({
     url: getUrl('captcha/getImgCaptcha'),
     method: 'get',
+  }, {
+    showOkMsg: false,
   });
 }
 export function getEmailCaptchaApi(data) {
